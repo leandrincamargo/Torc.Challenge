@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34728.123
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{B2B7780D-C97D-45AF-99CA-710079248E56}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{0190D235-982E-4B3C-902C-5FA48C9468ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{210B202B-FECE-4994-8E75-7E3B018D3468}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torc.Challenge.Application", "Torc.Challenge.Application\Torc.Challenge.Application.csproj", "{D021B711-ACD2-4083-9E25-24B187D29CF0}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torc.Challenge.Application.Interfaces", "Torc.Challenge.Application.Interfaces\Torc.Challenge.Application.Interfaces.csproj", "{09034406-1AD3-4A12-86A1-977720B1173C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torc.Challenge.Domain", "Torc.Challenge.Domain\Torc.Challenge.Domain.csproj", "{0692ABF4-1030-4B03-A3AB-9927BD741970}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torc.Challenge.Application.IoC", "Torc.Challenge.Application.IoC\Torc.Challenge.Application.IoC.csproj", "{2DFE1ACC-7D96-4A29-B61F-B6A0AD1BFBD2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torc.Challenge.Infrastructure", "Torc.Challenge.Infrastructure\Torc.Challenge.Infrastructure.csproj", "{E310C900-2DE0-4FE7-9B37-EEDDA9E4A4D3}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torc.Challenge.Infrastructure.Interfaces", "Torc.Challenge.Infrastructure.Interfaces\Torc.Challenge.Infrastructure.Interfaces.csproj", "{690B1B43-EC1C-4F56-B782-B7382414AC82}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torc.Challenge.Infrastructure.IoC", "Torc.Challenge.Infrastructure.IoC\Torc.Challenge.Infrastructure.IoC.csproj", "{F10FBA77-E6B2-42B0-A46C-E0EDFA68638F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Torc.Challenge.Api", "Torc.Challenge.Api\Torc.Challenge.Api.csproj", "{03B8D59C-A1A8-47A7-A609-6EDC467F72AB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D021B711-ACD2-4083-9E25-24B187D29CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D021B711-ACD2-4083-9E25-24B187D29CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D021B711-ACD2-4083-9E25-24B187D29CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D021B711-ACD2-4083-9E25-24B187D29CF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09034406-1AD3-4A12-86A1-977720B1173C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09034406-1AD3-4A12-86A1-977720B1173C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09034406-1AD3-4A12-86A1-977720B1173C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09034406-1AD3-4A12-86A1-977720B1173C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0692ABF4-1030-4B03-A3AB-9927BD741970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0692ABF4-1030-4B03-A3AB-9927BD741970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0692ABF4-1030-4B03-A3AB-9927BD741970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0692ABF4-1030-4B03-A3AB-9927BD741970}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DFE1ACC-7D96-4A29-B61F-B6A0AD1BFBD2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DFE1ACC-7D96-4A29-B61F-B6A0AD1BFBD2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DFE1ACC-7D96-4A29-B61F-B6A0AD1BFBD2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DFE1ACC-7D96-4A29-B61F-B6A0AD1BFBD2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E310C900-2DE0-4FE7-9B37-EEDDA9E4A4D3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E310C900-2DE0-4FE7-9B37-EEDDA9E4A4D3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E310C900-2DE0-4FE7-9B37-EEDDA9E4A4D3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E310C900-2DE0-4FE7-9B37-EEDDA9E4A4D3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{690B1B43-EC1C-4F56-B782-B7382414AC82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{690B1B43-EC1C-4F56-B782-B7382414AC82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{690B1B43-EC1C-4F56-B782-B7382414AC82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{690B1B43-EC1C-4F56-B782-B7382414AC82}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F10FBA77-E6B2-42B0-A46C-E0EDFA68638F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F10FBA77-E6B2-42B0-A46C-E0EDFA68638F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F10FBA77-E6B2-42B0-A46C-E0EDFA68638F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F10FBA77-E6B2-42B0-A46C-E0EDFA68638F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03B8D59C-A1A8-47A7-A609-6EDC467F72AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03B8D59C-A1A8-47A7-A609-6EDC467F72AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03B8D59C-A1A8-47A7-A609-6EDC467F72AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03B8D59C-A1A8-47A7-A609-6EDC467F72AB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D021B711-ACD2-4083-9E25-24B187D29CF0} = {B2B7780D-C97D-45AF-99CA-710079248E56}
+		{09034406-1AD3-4A12-86A1-977720B1173C} = {B2B7780D-C97D-45AF-99CA-710079248E56}
+		{0692ABF4-1030-4B03-A3AB-9927BD741970} = {B2B7780D-C97D-45AF-99CA-710079248E56}
+		{2DFE1ACC-7D96-4A29-B61F-B6A0AD1BFBD2} = {B2B7780D-C97D-45AF-99CA-710079248E56}
+		{E310C900-2DE0-4FE7-9B37-EEDDA9E4A4D3} = {0190D235-982E-4B3C-902C-5FA48C9468ED}
+		{690B1B43-EC1C-4F56-B782-B7382414AC82} = {0190D235-982E-4B3C-902C-5FA48C9468ED}
+		{F10FBA77-E6B2-42B0-A46C-E0EDFA68638F} = {0190D235-982E-4B3C-902C-5FA48C9468ED}
+		{03B8D59C-A1A8-47A7-A609-6EDC467F72AB} = {210B202B-FECE-4994-8E75-7E3B018D3468}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9A7F43B4-A2BB-46CF-8655-7295D626023F}
+	EndGlobalSection
+EndGlobal
