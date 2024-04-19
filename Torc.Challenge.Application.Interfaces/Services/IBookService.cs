@@ -8,8 +8,8 @@ namespace Torc.Challenge.Application.Interfaces.Services
 {
     public interface IBookService : IServiceBase<Book>
     {
-        Pagination<BookDto> Get();
-        Pagination<BookDto> GetByFilter(SearchBookEnum option, string value);
+        Pagination<BookDto> Get(int page, int rowsPerPage);
+        Pagination<BookDto> GetByFilter(SearchBookEnum option, string value, int page, int rowsPerPage);
         void Add(NewBookDto dto);
         void Update(int bookId, EditBookDto dto);
     }

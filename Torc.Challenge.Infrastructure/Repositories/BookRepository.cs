@@ -5,6 +5,7 @@ using Torc.Challenge.Domain.Utility;
 using Torc.Challenge.Infrastructure.DBConfiguration;
 using Torc.Challenge.Infrastructure.Interfaces.Repositories.Domain;
 using Torc.Challenge.Infrastructure.Repositories.Standard;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace Torc.Challenge.Infrastructure.Repositories
 {
@@ -12,22 +13,24 @@ namespace Torc.Challenge.Infrastructure.Repositories
     {
         public BookRepository(ApplicationContext dbContext) : base(dbContext) { }
 
-        public Pagination<BookDto> GetAll()
+        public Pagination<BookDto> GetAll(int page, int rowsPerPage)
         {
-            var books = _dbSet.OrderBy(x => x.Title).Select(book => (BookDto)book).ToList();
+            IQueryable<Book> query = _dbSet.OrderBy(x => x.Title);
 
-            var totalItemCount = books.Count();
+            var totalItemCount = query.Count();
+            var skipNumber = Pagination<BookDto>.CalculateSkipNumber(page, rowsPerPage);
+            var books = query.Skip(skipNumber).Take(rowsPerPage).Select(book => (BookDto)book).ToList();
 
             return new Pagination<BookDto>
             (
                 items: books,
                 totalItemCount: totalItemCount,
-                pageSize: int.MaxValue, 
-                currentPage: 1
+                pageSize: rowsPerPage,
+                currentPage: page
             );
         }
 
-        public Pagination<BookDto> GetByFilter(SearchBookEnum option, string value)
+        public Pagination<BookDto> GetByFilter(SearchBookEnum option, string value, int page, int rowsPerPage)
         {
             IQueryable<Book> query = _dbSet.OrderBy(x => x.Title);
             switch (option)
@@ -49,15 +52,16 @@ namespace Torc.Challenge.Infrastructure.Repositories
                     break;
             }
 
-            var books = query.Select(book => (BookDto)book).ToList();
-            var totalItemCount = books.Count();
+            var totalItemCount = query.Count();
+            var skipNumber = Pagination<BookDto>.CalculateSkipNumber(page, rowsPerPage);
+            var books = query.Skip(skipNumber).Take(rowsPerPage).Select(book => (BookDto)book).ToList();
 
             return new Pagination<BookDto>
             (
                 items: books,
                 totalItemCount: totalItemCount,
-                pageSize: int.MaxValue,
-                currentPage: 1
+                pageSize: rowsPerPage,
+                currentPage: page
             );
         }
     }

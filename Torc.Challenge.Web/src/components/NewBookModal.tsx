@@ -13,39 +13,51 @@ import api from '../services/api';
 interface EditBookModalProps {
   open: boolean;
   book: Book;
-  setNewBook: React.Dispatch<React.SetStateAction<boolean>>;
+  setBook: React.Dispatch<React.SetStateAction<Book>>;
+  setOpenModal: React.Dispatch<React.SetStateAction<boolean>>;
   setLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  onSearchBooks: () => Promise<void>;
+  onSearchBooks: (newPage: number, newRowsPerPage: number) => Promise<void>;
 }
 
 const NewBookModal: React.FC<EditBookModalProps> = ({
   open,
   book,
-  setNewBook,
+  setBook,
+  setOpenModal,
   setLoading,
   onSearchBooks,
 }) => {
-  const [editedBook, setEditedBook] = useState<Book>(book);
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    setEditedBook((prevBook) => ({ ...prevBook, [name]: value }));
+    setBook((prevBook) => ({ ...prevBook, [name]: value }));
   };
 
-  const handleSave = async () => {
+  const onSave = async () => {
     setLoading(true);
-    await api.post(`/api/books/`, editedBook);
+    if (book.bookId > 0) {
+      try {
+        await api.put(`/api/books/${book.bookId}`, book);
+      } catch (e) {
+        console.error(e);
+      }
+    } else {
+      try {
+        await api.post(`/api/books/`, book);
+      } catch (e) {
+        console.error(e);
+      }
+    }
     setLoading(false);
-    await onSearchBooks();
-    setNewBook(false);
+    onSearchBooks(-1, -1);
+    setOpenModal(false);
   };
 
   const onClose = () => {
-    setNewBook(false);
+    setOpenModal(false);
   };
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} style={{ zIndex: 100 }}>
       <DialogTitle>New Book</DialogTitle>
       <DialogContent>
         <TextField
@@ -55,8 +67,9 @@ const NewBookModal: React.FC<EditBookModalProps> = ({
           label="Title"
           type="text"
           fullWidth
-          value={editedBook?.title || ''}
+          value={book?.title || ''}
           onChange={handleChange}
+          disabled={book.bookId > 0}
         />
         <TextField
           autoFocus
@@ -65,8 +78,9 @@ const NewBookModal: React.FC<EditBookModalProps> = ({
           label="First Name"
           type="text"
           fullWidth
-          value={editedBook?.firstName || ''}
+          value={book?.firstName || ''}
           onChange={handleChange}
+          disabled={book.bookId > 0}
         />
         <TextField
           autoFocus
@@ -75,8 +89,9 @@ const NewBookModal: React.FC<EditBookModalProps> = ({
           label="Last Name"
           type="text"
           fullWidth
-          value={editedBook?.lastName || ''}
+          value={book?.lastName || ''}
           onChange={handleChange}
+          disabled={book.bookId > 0}
         />
         <TextField
           autoFocus
@@ -85,7 +100,7 @@ const NewBookModal: React.FC<EditBookModalProps> = ({
           label="Total Of Copies"
           type="number"
           fullWidth
-          value={editedBook?.totalCopies || 0}
+          value={book?.totalCopies || 0}
           onChange={handleChange}
         />
         <TextField
@@ -95,7 +110,7 @@ const NewBookModal: React.FC<EditBookModalProps> = ({
           label="Copies In Use"
           type="number"
           fullWidth
-          value={editedBook?.copiesInUse || 0}
+          value={book?.copiesInUse || 0}
           onChange={handleChange}
         />
         <TextField
@@ -105,7 +120,7 @@ const NewBookModal: React.FC<EditBookModalProps> = ({
           label="Type"
           type="text"
           fullWidth
-          value={editedBook?.type || ''}
+          value={book?.type || ''}
           onChange={handleChange}
         />
         <TextField
@@ -115,8 +130,9 @@ const NewBookModal: React.FC<EditBookModalProps> = ({
           label="ISBN"
           type="text"
           fullWidth
-          value={editedBook?.isbn || ''}
+          value={book?.isbn || ''}
           onChange={handleChange}
+          disabled={book.bookId > 0}
         />
         <TextField
           autoFocus
@@ -125,7 +141,7 @@ const NewBookModal: React.FC<EditBookModalProps> = ({
           label="Category"
           type="text"
           fullWidth
-          value={editedBook?.category || ''}
+          value={book?.category || ''}
           onChange={handleChange}
         />
       </DialogContent>
@@ -133,7 +149,7 @@ const NewBookModal: React.FC<EditBookModalProps> = ({
         <Button onClick={onClose} color="primary">
           Cancel
         </Button>
-        <Button onClick={handleSave} color="primary">
+        <Button onClick={onSave} color="primary">
           Save
         </Button>
       </DialogActions>

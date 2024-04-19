@@ -19,24 +19,75 @@ import NewBookModal from '../../components/NewBookModal';
 
 import './style.css';
 
-const Home = () => {
-  const [searchBy, setSearchBy] = useState<SearchBook | string>('');
-  const [searchValue, setSearchValue] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
-  const [newBook, setNewBook] = useState<boolean>(false);
-  const [books, setBooks] = useState<Book[]>([]);
+const DefaultParams = {
+  searchBy: '',
+  searchValue: '',
+  books: [] as Book[],
+  book: {} as Book,
+  loading: false,
+  page: 0,
+  rowsPerPage: 10,
+  totalItems: 0,
+  openModal: false,
+};
 
-  const onSearchBooks = async () => {
+const Home = () => {
+  const [searchBy, setSearchBy] = useState<SearchBook | string>(
+    DefaultParams.searchBy
+  );
+  const [searchValue, setSearchValue] = useState<string>(
+    DefaultParams.searchValue
+  );
+  const [loading, setLoading] = useState<boolean>(DefaultParams.loading);
+  const [books, setBooks] = useState<Book[]>(DefaultParams.books);
+  const [page, setPage] = useState<number>(DefaultParams.page);
+  const [openModal, setOpenModal] = useState<boolean>(DefaultParams.openModal);
+  const [book, setBook] = useState<Book>(DefaultParams.book);
+  const [rowsPerPage, setRowsPerPage] = useState<number>(
+    DefaultParams.rowsPerPage
+  );
+  const [totalItems, setTotalItems] = useState<number>(
+    DefaultParams.totalItems
+  );
+
+  const onSearchBooks = async (newPage: number, newRowsPerPage: number) => {
+    newPage = newPage < 0 ? page : newPage;
+    newRowsPerPage = newRowsPerPage < 0 ? rowsPerPage : newRowsPerPage;
     setLoading(true);
-    const { data } = await api.get(`/api/books?field=${searchBy}&value=${searchValue}`);
-    setBooks(data.items);
+    let items = [] as Book[];
+    try {
+      const { data } = await api.get(
+        `/api/books?field=${searchBy}&value=${searchValue}&page=${newPage}&rowsPerPage=${newRowsPerPage}`
+      );
+      items = data.items;
+      setPage(data.currentPage);
+      setTotalItems(data.totalItemCount);
+    } catch (e) {
+      console.error(e);
+      items = [] as Book[];
+      setPage(DefaultParams.page);
+      setTotalItems(DefaultParams.totalItems);
+    }
+    setBooks(items);
+    setLoading(false);
+  };
+
+  const onEditBook = (book: Book) => {
+    setLoading(true);
+    setBook(book);
+    setOpenModal(true);
     setLoading(false);
   };
 
   useEffect(() => {
-    setSearchBy('');
-    setSearchValue('');
-    onSearchBooks();
+    setSearchBy(DefaultParams.searchBy);
+    setSearchValue(DefaultParams.searchValue);
+    setBooks(DefaultParams.books);
+    setPage(DefaultParams.page);
+    setRowsPerPage(DefaultParams.rowsPerPage);
+    setTotalItems(DefaultParams.totalItems);
+    setOpenModal(DefaultParams.openModal);
+    onSearchBooks(DefaultParams.page, DefaultParams.rowsPerPage);
   }, []);
 
   return (
@@ -46,9 +97,10 @@ const Home = () => {
           <h1>Royal Library</h1>
           {loading ? <LoadingOverlay loading={loading} /> : <></>}
           <NewBookModal
-            open={newBook}
-            setNewBook={setNewBook}
-            book={{} as Book}
+            open={openModal}
+            setOpenModal={setOpenModal}
+            book={book}
+            setBook={setBook}
             setLoading={setLoading}
             onSearchBooks={onSearchBooks}
           />
@@ -77,10 +129,18 @@ const Home = () => {
                 style={{ marginBottom: '20px' }}
               />
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <Button variant="contained" color="primary" onClick={onSearchBooks}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => onSearchBooks(DefaultParams.page, rowsPerPage)}
+                >
                   Search
                 </Button>
-                <Button variant="contained" color="primary" onClick={() => setNewBook(true)}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={() => onEditBook({} as Book)}
+                >
                   Add New Book
                 </Button>
               </div>
@@ -92,6 +152,12 @@ const Home = () => {
               booksData={books}
               setLoading={setLoading}
               onSearchBooks={onSearchBooks}
+              page={page}
+              setPage={setPage}
+              rowsPerPage={rowsPerPage}
+              setRowsPerPage={setRowsPerPage}
+              totalItems={totalItems}
+              onEditBook={onEditBook}
             />
           </Card>
         </main>

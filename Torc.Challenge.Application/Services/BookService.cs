@@ -16,14 +16,14 @@ namespace Torc.Challenge.Application.Services
             _repository = repository;
         }
 
-        public Pagination<BookDto> Get()
+        public Pagination<BookDto> Get(int page, int rowsPerPage)
         {
-            return _repository.GetAll();
+            return _repository.GetAll(page, rowsPerPage);
         }
 
-        public Pagination<BookDto> GetByFilter(SearchBookEnum option, string value)
+        public Pagination<BookDto> GetByFilter(SearchBookEnum option, string value, int page, int rowsPerPage)
         {
-            return _repository.GetByFilter(option, value);
+            return _repository.GetByFilter(option, value, page, rowsPerPage);
         }
 
         public void Add(NewBookDto dto)
@@ -35,8 +35,8 @@ namespace Torc.Challenge.Application.Services
         public void Update(int bookId, EditBookDto dto)
         {
             var book = base.GetById(bookId);
-            book.FirstName = dto.FirstName;
-            book.LastName = dto.LastName;
+            book.Type = dto.Type;
+            book.Category = dto.Category;
             book.TotalCopies = dto.TotalCopies;
             book.CopiesInUse = dto.CopiesInUse;
 

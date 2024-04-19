@@ -22,15 +22,15 @@ namespace Torc.Challenge.Api.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Pagination<BookDto>))]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public IActionResult Get(SearchBookEnum? field = null, string value = "")
+        public IActionResult Get(SearchBookEnum? field = null, string value = "", int page = 0, int rowsPerPage = 10)
         {
             try
             {
                 Pagination<BookDto> books;
                 if (field == null || string.IsNullOrWhiteSpace(value))
-                    books = _bookService.Get();
+                    books = _bookService.Get(page, rowsPerPage);
                 else
-                    books = _bookService.GetByFilter(field.Value, value);
+                    books = _bookService.GetByFilter(field.Value, value, page, rowsPerPage);
                 return Ok(books);
             }
             catch (Exception ex)

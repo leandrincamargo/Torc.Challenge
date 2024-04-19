@@ -19,7 +19,7 @@
 
         public static int CalculateSkipNumber(int pageNumber, int pageSize)
         {
-            return (pageNumber - 1) * pageSize;
+            return pageNumber * pageSize;
         }
 
         private int CalculatePageSize(int totalItemCount, int pageSize)

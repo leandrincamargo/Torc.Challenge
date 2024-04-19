@@ -8,7 +8,7 @@ namespace Torc.Challenge.Infrastructure.Interfaces.Repositories.Domain
 {
     public interface IBookRepository : IDomainRepository<Book>
     {
-        Pagination<BookDto> GetAll();
-        Pagination<BookDto> GetByFilter(SearchBookEnum option, string value);
+        Pagination<BookDto> GetAll(int page, int rowsPerPage);
+        Pagination<BookDto> GetByFilter(SearchBookEnum option, string value, int page, int rowsPerPage);
     }
 }
